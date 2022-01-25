@@ -4,6 +4,21 @@
     "compilerOptions": {
         "allowSyntheticDefaultImports": true,
         "baseUrl": "./src",
+        "paths": {
+            "crypto": [
+                "../node_modules/crypto-js",
+                "../node_modules/crypto-browserify"
+            ],
+            "http": [
+                "../node_modules/stream-http",
+            ],
+            "https": [
+                "../node_modules/https-browserify",
+            ],
+            "os": [
+                "../node_modules/os-browserify/browser"
+            ]
+        },
         "outDir": "./dist/out-tsc",
         "sourceMap": true,
         "declaration": false,
