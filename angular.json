@@ -28,7 +28,15 @@
                             "highlight.js",
                             "crypto-js/enc-utf8",
                             "crypto-js/hmac-sha256",
-                            "crypto-js/enc-base64"
+                            "crypto-js/enc-base64",
+                            "web3",
+                            "query-string",
+                            "@walletconnect/window-metadata",
+                            "hash.js",
+                            "@walletconnect/window-metadata",
+                            "@walletconnect/socket-transport",
+                            "@walletconnect/environment",
+                            "@walletconnect/encoding"
                         ],
                         "assets": [
                             "src/assets",

@@ -23,15 +23,14 @@ export class ContractService {
                 package: WalletConnectProvider, // required
                 options: {
                     rpc: {
-                        97: 'https://data-seed-prebsc-1-s1.binance.org:8545/',
+                        97: 'https://data-seed-prebsc-1-s1.binance.org:8545/', //Testnet
+                        56: 'https://bsc-dataseed.binance.org/' //Mainnet
                     },
-                    network: 'binance'
                 }
             }
         };
 
         this.web3Modal = new Web3Modal({
-            network: 'mainnet', // optional
             cacheProvider: true, // optional
             providerOptions, // required
             theme: {
@@ -48,9 +47,13 @@ export class ContractService {
         this.web3Modal.clearCachedProvider();
 
         this.provider = await this.web3Modal.connect(); // set provider
-        this.web3js = new Web3(this.provider); // create web3 instance
-        this.accounts = await this.web3js.eth.getAccounts();
-        this.accountStatusSource.next(this.accounts);
+        if (this.provider.networkVersion === '56') {
+            console.log('Debe estar conectado a la red Testnet');
+        } else {
+            this.web3js = new Web3(this.provider); // create web3 instance
+            this.accounts = await this.web3js.eth.getAccounts();
+            this.accountStatusSource.next(this.accounts);
+        }
     }
 
     public getLoveMessage(id: string) {
@@ -168,7 +171,6 @@ export class ContractService {
             '    }\n' +
             ']\n');
         const alwaysLoveContract = new this.web3js.eth.Contract(json, this.contractAddress);
-        console.log(alwaysLoveContract);
         alwaysLoveContract.methods.getLoveMessage(id).call({from: this.accounts[0]}).then((response) => {
             console.log(response);
         });

@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
-import Web3 from 'web3';
-import {ContractService} from "../../../core/eth-services/contract.service";
+import {EthereumProviderService} from '../../../core/eth-services/ethereum-provider.service';
+import {bufferToHex} from 'ethereumjs-util';
+import {encrypt} from 'eth-sig-util';
 
 @Component({
     selector     : 'auth-sign-in',
@@ -24,7 +25,7 @@ export class AuthSignInComponent implements OnInit
     signInForm: FormGroup;
     showAlert: boolean = false;
 
-    web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/0466b07d85ad4e828497cd8b43fa1e5e'));
+    // web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/0466b07d85ad4e828497cd8b43fa1e5e'));
 
     /**
      * Constructor
@@ -33,8 +34,7 @@ export class AuthSignInComponent implements OnInit
         private _activatedRoute: ActivatedRoute,
         private _authService: AuthService,
         private _formBuilder: FormBuilder,
-        private _router: Router,
-        private contractService: ContractService
+        private _router: Router
     )
     {
     }
@@ -113,41 +113,34 @@ export class AuthSignInComponent implements OnInit
     }
 
     async connectToWallet(): Promise<void> {
-        // EthereumProviderService.requestAccounts(await EthereumProviderService.getProvider()).then(async (accounts) => {
-        //     console.log(accounts);
-        //     if (accounts) {
-        //         // @ts-ignore
-        //         const selectedAccount = accounts[0];
-        //         // EthereumProviderService.getEncryptionPublicKey(await EthereumProviderService.getProvider(), selectedAccount).then(async (publicKey) => {
-        //         //     if (publicKey != null) {
-        //         //         const encryptedMessage = bufferToHex(Buffer.from(
-        //         //             JSON.stringify(
-        //         //                 encrypt(publicKey, {
-        //         //                     data: 'Esto esta bien encriptado web'
-        //         //                 }, 'x25519-xsalsa20-poly1305')), 'utf-8'));
-        //         //         EthereumProviderService.decryptMessage(await EthereumProviderService.getProvider(), encryptedMessage, selectedAccount).then((decryptedMessage) => {
-        //         //             console.log(decryptedMessage);
-        //         //         });
-        //         //     }
-        //         // });
-        //
-        //         // EthereumProviderService.getBalance(await EthereumProviderService.getProvider(), selectedAccount, 'latest').then((balance) => {
-        //         //     console.log(balance);
-        //         // });
-        //
-        //         // EthereumProviderService.getLoveMessage(await EthereumProviderService.getProvider(), selectedAccount,
-        //         //     '0x056Bf8Fb86AF262DBD8E1Fc13f92e70fC810B4d8',
-        //         //     // eslint-disable-next-line max-len
-        // eslint-disable-next-line max-len
-        //         //     '0xf38947e6000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000013100000000000000000000000000000000000000000000000000000000000000').then((loveMessage) => {
-        //         //     console.log(loveMessage);
-        //         //     console.log(this.web3);
-        //         // });
-        //     }
-        // });
+        EthereumProviderService.requestAccounts(await EthereumProviderService.getProvider()).then(async (accounts) => {
+            console.log(accounts);
+            if (accounts) {
+                // @ts-ignore
+                const selectedAccount = accounts[0];
+                EthereumProviderService.getEncryptionPublicKey(await EthereumProviderService.getProvider(), selectedAccount).then(async (publicKey) => {
+                    if (publicKey != null) {
+                        const encryptedMessage = bufferToHex(Buffer.from(
+                            JSON.stringify(
+                                encrypt(publicKey, {
+                                    data: 'Esto esta bien encriptado web'
+                                }, 'x25519-xsalsa20-poly1305')), 'utf-8'));
+                        EthereumProviderService.decryptMessage(await EthereumProviderService.getProvider(), encryptedMessage, selectedAccount).then((decryptedMessage) => {
+                            console.log(decryptedMessage);
+                        });
+                    }
+                });
 
-        await this.contractService.connectAccount().then(() => {
-            console.log(this.contractService.getLoveMessage('1'));
+                EthereumProviderService.getBalance(await EthereumProviderService.getProvider(), selectedAccount, 'latest').then((balance) => {
+                    console.log(balance);
+                });
+
+                await EthereumProviderService.getLoveMessage();
+            }
         });
+
+        // await this.contractService.connectAccount().then(() => {
+        //     console.log(this.contractService.getLoveMessage('1'));
+        // });
     }
 }
