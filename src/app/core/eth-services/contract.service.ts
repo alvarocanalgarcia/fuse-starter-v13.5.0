@@ -8,14 +8,13 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
 })
 export class ContractService {
+    web3Modal;
+    accountStatusSource = new Subject<any>();
+    accountStatus$ = this.accountStatusSource.asObservable();
     private web3js: any;
     private provider: any;
     private accounts: any;
     private contractAddress = '0x056Bf8Fb86AF262DBD8E1Fc13f92e70fC810B4d8';
-    web3Modal;
-
-    private accountStatusSource = new Subject<any>();
-    accountStatus$ = this.accountStatusSource.asObservable();
 
     constructor() {
         const providerOptions = {
@@ -56,7 +55,7 @@ export class ContractService {
         }
     }
 
-    public getLoveMessage(id: string) {
+    public getLoveMessage(id: string): void{
         const json = JSON.parse('[\n' +
             '    {\n' +
             '        "inputs": [],\n' +

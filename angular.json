@@ -36,7 +36,10 @@
                             "@walletconnect/window-metadata",
                             "@walletconnect/socket-transport",
                             "@walletconnect/environment",
-                            "@walletconnect/encoding"
+                            "@walletconnect/encoding",
+                            "eth-sig-util",
+                            "ethereum-util",
+                            "ethereumjs-util"
                         ],
                         "assets": [
                             "src/assets",

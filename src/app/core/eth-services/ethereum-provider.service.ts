@@ -66,7 +66,7 @@ export class EthereumProviderService {
         }
     }
 
-    static async getLoveMessage(){
+    static async getLoveMessage(): Promise<void>{
       try {
           const json = JSON.parse('[\n' +
               '    {\n' +
