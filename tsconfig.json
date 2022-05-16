@@ -10,10 +10,10 @@
                 "../node_modules/crypto-browserify"
             ],
             "http": [
-                "../node_modules/stream-http",
+                "../node_modules/stream-http"
             ],
             "https": [
-                "../node_modules/https-browserify",
+                "../node_modules/https-browserify"
             ],
             "os": [
                 "../node_modules/os-browserify/browser"
@@ -31,7 +31,8 @@
         "lib": [
             "es2018",
             "dom"
-        ]
+        ],
+        "resolveJsonModule": true
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false
