@@ -22,8 +22,8 @@ export class AuthSignInComponent implements OnInit
         type   : 'success',
         message: ''
     };
-    signInForm: FormGroup;
     showAlert: boolean = false;
+    loading = false;
 
     // web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/0466b07d85ad4e828497cd8b43fa1e5e'));
 
@@ -48,12 +48,6 @@ export class AuthSignInComponent implements OnInit
      */
     ngOnInit(): void
     {
-        // Create the form
-        this.signInForm = this._formBuilder.group({
-            email     : ['hughes.brian@company.com', [Validators.required, Validators.email]],
-            password  : ['admin', Validators.required],
-            rememberMe: ['']
-        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -65,20 +59,15 @@ export class AuthSignInComponent implements OnInit
      */
     signIn(): void
     {
-        // Return if the form is invalid
-        if ( this.signInForm.invalid )
-        {
-            return;
-        }
 
         // Disable the form
-        this.signInForm.disable();
+        this.loading = true;
 
         // Hide the alert
         this.showAlert = false;
 
         // Sign in
-        this._authService.signIn(this.signInForm.value)
+        this._authService.signIn({address: 'hola'})
             .subscribe(
                 () => {
 
@@ -95,7 +84,7 @@ export class AuthSignInComponent implements OnInit
                 (response) => {
 
                     // Re-enable the form
-                    this.signInForm.enable();
+                    this.loading = false;
 
                     // Reset the form
                     this.signInNgForm.resetForm();
