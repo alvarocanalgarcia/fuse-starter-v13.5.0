@@ -45,6 +45,7 @@
                             "src/assets",
                             "src/favicon-16x16.png",
                             "src/favicon-32x32.png",
+                            "src/metamaskIcon.png",
                             "src/assets",
                             {
                                 "glob": "_redirects",

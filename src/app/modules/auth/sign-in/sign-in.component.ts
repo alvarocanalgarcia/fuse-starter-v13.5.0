@@ -7,6 +7,7 @@ import { AuthService } from 'app/core/auth/auth.service';
 import {EthereumProviderService} from '../../../core/eth-services/ethereum-provider.service';
 import {bufferToHex} from 'ethereumjs-util';
 import {encrypt} from 'eth-sig-util';
+import detectEthereumProvider from '@metamask/detect-provider';
 
 @Component({
     selector     : 'auth-sign-in',
@@ -22,8 +23,8 @@ export class AuthSignInComponent implements OnInit
         type   : 'success',
         message: ''
     };
-    signInForm: FormGroup;
     showAlert: boolean = false;
+    loading: boolean = false;
 
     // web3 = new Web3(new Web3.providers.HttpProvider('https://mainnet.infura.io/v3/0466b07d85ad4e828497cd8b43fa1e5e'));
 
@@ -48,12 +49,6 @@ export class AuthSignInComponent implements OnInit
      */
     ngOnInit(): void
     {
-        // Create the form
-        this.signInForm = this._formBuilder.group({
-            email     : ['hughes.brian@company.com', [Validators.required, Validators.email]],
-            password  : ['admin', Validators.required],
-            rememberMe: ['']
-        });
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -65,56 +60,68 @@ export class AuthSignInComponent implements OnInit
      */
     signIn(): void
     {
-        // Return if the form is invalid
-        if ( this.signInForm.invalid )
-        {
-            return;
-        }
-
-        // Disable the form
-        this.signInForm.disable();
-
+        this.loading = true;
         // Hide the alert
         this.showAlert = false;
 
-        // Sign in
-        this._authService.signIn(this.signInForm.value)
-            .subscribe(
-                () => {
-
-                    // Set the redirect url.
-                    // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-                    // to the correct page after a successful sign in. This way, that url can be set via
-                    // routing file and we don't have to touch here.
-                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
-
-                    // Navigate to the redirect url
-                    this._router.navigateByUrl(redirectURL);
-
-                },
-                (response) => {
-
-                    // Re-enable the form
-                    this.signInForm.enable();
-
-                    // Reset the form
-                    this.signInNgForm.resetForm();
-
-                    // Set the alert
+        EthereumProviderService.getProvider().then(async (provider) => {
+                if(provider){
+                     EthereumProviderService.requestAccounts().then(async (accounts) => {
+                        if (accounts) {
+                            this._authService.signIn(accounts[0]).subscribe(() => {
+                                this._router.navigateByUrl('/example');
+                            });
+                        } else {
+                            this.loading = false;
+                            this.alert = {
+                                type : 'error',
+                                message: 'Please accept MetaMask to continue.'
+                            };
+                            this.showAlert = true;
+                        }
+                    });
+                } else {
+                    this.loading = false;
                     this.alert = {
-                        type   : 'error',
-                        message: 'Wrong email or password'
+                        type : 'error',
+                        message: 'Please install MetaMask to continue'
                     };
-
-                    // Show the alert
                     this.showAlert = true;
                 }
-            );
+            }
+        );
+
+        // this._authService.signIn()
+        //     .subscribe(
+        //         () => {
+        //
+        //             // Set the redirect url.
+        //             // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
+        //             // to the correct page after a successful sign in. This way, that url can be set via
+        //             // routing file and we don't have to touch here.
+        //             const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+        //
+        //             // Navigate to the redirect url
+        //             this._router.navigateByUrl(redirectURL);
+        //
+        //         },
+        //         (response) => {
+        //             this.loading = false;
+        //
+        //             // Set the alert
+        //             this.alert = {
+        //                 type   : 'error',
+        //                 message: 'Error'
+        //             };
+        //
+        //             // Show the alert
+        //             this.showAlert = true;
+        //         }
+        //     );
     }
 
     async connectToWallet(): Promise<void> {
-        EthereumProviderService.requestAccounts(await EthereumProviderService.getProvider()).then(async (accounts) => {
-            console.log(accounts);
+        EthereumProviderService.requestAccounts().then(async (accounts) => {
             if (accounts) {
                 // @ts-ignore
                 const selectedAccount = accounts[0];
@@ -138,9 +145,5 @@ export class AuthSignInComponent implements OnInit
                 await EthereumProviderService.getLoveMessage();
             }
         });
-
-        // await this.contractService.connectAccount().then(() => {
-        //     console.log(this.contractService.getLoveMessage('1'));
-        // });
     }
 }
