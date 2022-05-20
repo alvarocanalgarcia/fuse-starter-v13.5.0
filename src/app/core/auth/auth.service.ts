@@ -85,7 +85,6 @@ export class AuthService
 
                 // Store the user on the user service
                 this._userService.update(response.user);
-                this._userService.user$.subscribe((user) => { console.log(user);});
 
                 // Return a new observable with the response
                 return of(response);

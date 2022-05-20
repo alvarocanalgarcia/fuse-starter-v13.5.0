@@ -3,7 +3,7 @@
         <div class="w-full max-w-80 sm:w-80 mx-auto sm:mx-0">
             <!-- Logo -->
             <div class="w-12">
-                <img src="assets/images/logo/logo.svg">
+                <img src="assets/images/logo/boat.png">
             </div>
 
             <!-- Title -->
@@ -34,8 +34,8 @@
                 [color]="'primary'"
                 [disabled]="loading"
                 (click)="signIn()">
-                    <span *ngIf="!loading">
-                        <span class="ml-6" style="float: left">Connect to Metamask</span> <img class="mr-6" style="max-width: 8%; height: auto; float: right" src="metamaskIcon.png" alt="MetamaskLogo">
+                    <span *ngIf="!loading" style="white-space: nowrap">
+                        Connect to Metamask <img class="ml-6" style="display: inline; max-width: 8%; height: auto" src="metamaskIcon.png" alt="https://www.flaticon.com/free-icons/boat">
                     </span>
                 <mat-progress-spinner
                     *ngIf="loading"
