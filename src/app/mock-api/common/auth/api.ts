@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import Base64 from 'crypto-js/enc-base64';
 import HmacSHA256 from 'crypto-js/hmac-sha256';
 import Utf8 from 'crypto-js/enc-utf8';
-import { cloneDeep } from 'lodash-es';
 import { FuseMockApiService } from '@fuse/lib/mock-api';
+import {cloneDeep} from "lodash-es";
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +11,7 @@ import { FuseMockApiService } from '@fuse/lib/mock-api';
 export class AuthMockApi
 {
     private readonly _secret: any;
+    private _user: any = null;
 
     /**
      * Constructor
@@ -63,6 +64,7 @@ export class AuthMockApi
         this._fuseMockApiService
             .onPost('api/auth/sign-in', 1500)
             .reply(({request}) => {
+                this._user = {address: request.body.address};
                     return [
                         200,
                         {
@@ -71,23 +73,19 @@ export class AuthMockApi
                             tokenType  : 'bearer'
                         }
                     ];
-
-                // Invalid credentials
-                return [
-                    404,
-                    false
-                ];
             });
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Verify and refresh the access token - POST
-        // -----------------------------------------------------------------------------------------------------
+        // // -----------------------------------------------------------------------------------------------------
+        // // @ Verify and refresh the access token - POST
+        // // -----------------------------------------------------------------------------------------------------
         // this._fuseMockApiService
         //     .onPost('api/auth/refresh-access-token')
         //     .reply(({request}) => {
         //
         //         // Get the access token
         //         const accessToken = request.body.accessToken;
+        //         console.log(this._user);
+        //         console.log(accessToken);
         //
         //         // Verify the token
         //         if ( this._verifyJWTToken(accessToken) )

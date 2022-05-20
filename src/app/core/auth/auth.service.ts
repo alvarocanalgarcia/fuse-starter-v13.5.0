@@ -4,6 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
+import {EthereumProviderService} from "../eth-services/ethereum-provider.service";
 
 @Injectable()
 export class AuthService
@@ -76,7 +77,6 @@ export class AuthService
 
         return this._httpClient.post('api/auth/sign-in', credentials).pipe(
             switchMap((response: any) => {
-
                 // Store the access token in the local storage
                 this.accessToken = response.accessToken;
 
@@ -84,41 +84,11 @@ export class AuthService
                 this._authenticated = true;
 
                 // Store the user on the user service
-                this._userService.user = response.user;
+                this._userService.update(response.user);
+                this._userService.user$.subscribe((user) => { console.log(user);});
 
                 // Return a new observable with the response
                 return of(response);
-            })
-        );
-    }
-
-    /**
-     * Sign in using the access token
-     */
-    signInUsingToken(): Observable<any>
-    {
-        // Renew token
-        return this._httpClient.post('api/auth/refresh-access-token', {
-            accessToken: this.accessToken
-        }).pipe(
-            catchError(() =>
-
-                // Return false
-                of(false)
-            ),
-            switchMap((response: any) => {
-
-                // Store the access token in the local storage
-                this.accessToken = response.accessToken;
-
-                // Set the authenticated flag to true
-                this._authenticated = true;
-
-                // Store the user on the user service
-                this._userService.user = response.user;
-
-                // Return true
-                return of(true);
             })
         );
     }
@@ -168,9 +138,8 @@ export class AuthService
         {
             return of(true);
         }
-
         // Check the access token availability
-        if ( !this.accessToken )
+        if ( this.accessToken === undefined || this.accessToken === 'undefined')
         {
             return of(false);
         }
@@ -181,7 +150,6 @@ export class AuthService
             return of(false);
         }
 
-        // If the access token exists and it didn't expire, sign in using it
-        return this.signInUsingToken();
+        return of(true);
     }
 }

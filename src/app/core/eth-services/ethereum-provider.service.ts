@@ -18,11 +18,12 @@ export class EthereumProviderService {
     })) as MetaMaskInpageProvider;
   }
 
-  static async requestAccounts(provider: MetaMaskInpageProvider): Promise<Maybe<unknown>> {
-      const web3js = new Web3(await detectEthereumProvider({}) as any); // create web3 instance
-      // return provider.request({method: 'eth_requestAccounts'});
-      return await web3js.eth.getAccounts();
-  }
+    static async requestAccounts(): Promise<Maybe<unknown>> {
+        const provider = await this.getProvider();
+        return provider.request({
+            method: 'eth_requestAccounts'
+        });
+    }
 
   static async getEncryptionPublicKey(
     provider: MetaMaskInpageProvider,

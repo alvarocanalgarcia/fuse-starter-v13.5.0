@@ -1,20 +1,13 @@
 <!-- Button -->
 <button mat-button
     [matMenuTriggerFor]="userActions">
-        <span *ngIf="user.address">{{user.address}}</span>
+        <span *ngIf="user && user.address">{{user.address}}</span>
         <span *ngIf="!user">Connect your wallet</span>
 </button>
 
 <mat-menu
     [xPosition]="'before'"
     #userActions="matMenu">
-    <button mat-menu-item>
-        <span class="flex flex-col leading-none">
-            <span>Signed in as</span>
-            <span class="mt-1.5 text-md font-medium">{{user.address}}</span>
-        </span>
-    </button>
-    <mat-divider class="my-2"></mat-divider>
     <button
         mat-menu-item
         (click)="signOut()">

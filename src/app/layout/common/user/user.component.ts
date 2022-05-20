@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
+import {EthereumProviderService} from "../../../core/eth-services/ethereum-provider.service";
 
 @Component({
     selector       : 'user',
@@ -44,15 +45,10 @@ export class UserComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        // Subscribe to user changes
-        this._userService.user$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((user: User) => {
-                this.user = user;
-
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+        EthereumProviderService.requestAccounts().then((accounts) => {
+           this.user = {address: accounts[0]};
+           this._changeDetectorRef.markForCheck();
+        });
     }
 
     /**

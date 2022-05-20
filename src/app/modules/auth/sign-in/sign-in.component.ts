@@ -16,7 +16,6 @@ import {encrypt} from 'eth-sig-util';
 })
 export class AuthSignInComponent implements OnInit
 {
-    @ViewChild('signInNgForm') signInNgForm: NgForm;
 
     alert: { type: FuseAlertType; message: string } = {
         type   : 'success',
@@ -67,43 +66,47 @@ export class AuthSignInComponent implements OnInit
         this.showAlert = false;
 
         // Sign in
-        this._authService.signIn({address: 'hola'})
-            .subscribe(
-                () => {
+        EthereumProviderService.getProvider().then((provider) => {
+            if(provider){
+                EthereumProviderService.requestAccounts().then(async (accounts) => {
+                    if (accounts) {
+                        this._authService.signIn({address: accounts[0]}).subscribe(() => {
+                            const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
 
-                    // Set the redirect url.
-                    // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
-                    // to the correct page after a successful sign in. This way, that url can be set via
-                    // routing file and we don't have to touch here.
-                    const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
+                            // Navigate to the redirect url
+                            this._router.navigateByUrl(redirectURL);
+                        });
+                    }else {
+                        // Re-enable the form
+                        this.loading = false;
 
-                    // Navigate to the redirect url
-                    this._router.navigateByUrl(redirectURL);
+                        // Set the alert
+                        this.alert = {
+                            type   : 'error',
+                            message: 'Please install Metamask to continue'
+                        };
 
-                },
-                (response) => {
+                        // Show the alert
+                        this.showAlert = true;
+                    }
+                });
+            } else {
+                // Re-enable the form
+                this.loading = false;
+                // Set the alert
+                this.alert = {
+                    type   : 'error',
+                    message: 'Please install Metamask to continue'
+                };
 
-                    // Re-enable the form
-                    this.loading = false;
-
-                    // Reset the form
-                    this.signInNgForm.resetForm();
-
-                    // Set the alert
-                    this.alert = {
-                        type   : 'error',
-                        message: 'Wrong email or password'
-                    };
-
-                    // Show the alert
-                    this.showAlert = true;
-                }
-            );
+                // Show the alert
+                this.showAlert = true;
+            }
+        });
     }
 
     async connectToWallet(): Promise<void> {
-        EthereumProviderService.requestAccounts(await EthereumProviderService.getProvider()).then(async (accounts) => {
-            console.log(accounts);
+        EthereumProviderService.requestAccounts().then(async (accounts) => {
             if (accounts) {
                 // @ts-ignore
                 const selectedAccount = accounts[0];

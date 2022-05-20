@@ -42,8 +42,7 @@ export class InitialDataResolver implements Resolve<any>
             this._navigationService.get(),
             this._messagesService.getAll(),
             this._notificationsService.getAll(),
-            this._shortcutsService.getAll(),
-            this._userService.get()
+            this._shortcutsService.getAll()
         ]);
     }
 }
