@@ -9,14 +9,14 @@ import { InitialDataResolver } from 'app/app.resolvers';
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/home'
-    {path: '', pathMatch : 'full', redirectTo: 'home'},
+    {path: '', pathMatch : 'full', redirectTo: 'cryptoArk/home'},
 
     // Redirect signed in user to the '/home'
     //
     // After the user signs in, the sign in page will redirect the user to the 'signed-in-redirect'
     // path. Below is another redirection for that path to redirect the user to the desired
     // location. This is a small convenience to keep all main routes together here on this file.
-    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'home'},
+    {path: 'signed-in-redirect', pathMatch : 'full', redirectTo: 'cryptoArk/home'},
 
     // Auth routes for guests
     {
@@ -56,9 +56,13 @@ export const appRoutes: Route[] = [
             initialData: InitialDataResolver,
         },
         children   : [
-            {path: 'home', loadChildren: () => import('app/modules/admin/home/home.module').then(m => m.HomeModule)},
-            {path: 'sellers', loadChildren: () => import('app/modules/admin/sellers/sellers.module').then(m => m.SellersModule)},
-            {path: 'purchased-products', loadChildren: () => import('app/modules/admin/purchased-products/purchased-products.module').then(m => m.PurchasedProductsModule)},
+            {
+                path     : 'cryptoArk', children: [
+                    {path: 'home', loadChildren: () => import('app/modules/admin/home/home.module').then(m => m.HomeModule)},
+                    {path: 'sellers', loadChildren: () => import('app/modules/admin/sellers/sellers.module').then(m => m.SellersModule)},
+                    {path: 'purchased-products', loadChildren: () => import('app/modules/admin/purchased-products/purchased-products.module').then(m => m.PurchasedProductsModule)},
+                ]
+            }
         ]
     }
 ];
