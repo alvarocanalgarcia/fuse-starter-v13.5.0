@@ -2,10 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy
 import { Router } from '@angular/router';
 import { BooleanInput } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
-import {EthereumProviderService} from "../../../core/eth-services/ethereum-provider.service";
+import {EthereumProviderService} from '../../../core/eth-services/ethereum-provider.service';
+import {AuthService} from '../../../core/auth/auth.service';
 
 @Component({
     selector       : 'user',
@@ -31,7 +31,8 @@ export class UserComponent implements OnInit, OnDestroy
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
         private _router: Router,
-        private _userService: UserService
+        private _userService: UserService,
+        private _authService: AuthService
     )
     {
     }
@@ -90,5 +91,22 @@ export class UserComponent implements OnInit, OnDestroy
     signOut(): void
     {
         this._router.navigate(['/sign-out']);
+    }
+
+    connectWallet(): void {
+        EthereumProviderService.getProvider().then((provider) => {
+            if(provider){
+                EthereumProviderService.requestAccounts().then(async (accounts) => {
+                    if (accounts) {
+                        this._authService.signIn({address: accounts[0]}).subscribe(() => {
+                            this._userService.get().subscribe((user) => {
+                                this.user = user;
+                                this._changeDetectorRef.markForCheck();
+                            });
+                        });
+                    }
+                });
+            }
+        });
     }
 }
