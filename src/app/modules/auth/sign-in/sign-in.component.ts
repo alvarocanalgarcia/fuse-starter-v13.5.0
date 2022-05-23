@@ -104,35 +104,4 @@ export class AuthSignInComponent implements OnInit
             }
         });
     }
-
-    async connectToWallet(): Promise<void> {
-        EthereumProviderService.requestAccounts().then(async (accounts) => {
-            if (accounts) {
-                // @ts-ignore
-                const selectedAccount = accounts[0];
-                EthereumProviderService.getEncryptionPublicKey(await EthereumProviderService.getProvider(), selectedAccount).then(async (publicKey) => {
-                    if (publicKey != null) {
-                        const encryptedMessage = bufferToHex(Buffer.from(
-                            JSON.stringify(
-                                encrypt(publicKey, {
-                                    data: 'Esto esta bien encriptado web'
-                                }, 'x25519-xsalsa20-poly1305')), 'utf-8'));
-                        EthereumProviderService.decryptMessage(await EthereumProviderService.getProvider(), encryptedMessage, selectedAccount).then((decryptedMessage) => {
-                            console.log(decryptedMessage);
-                        });
-                    }
-                });
-
-                EthereumProviderService.getBalance(await EthereumProviderService.getProvider(), selectedAccount, 'latest').then((balance) => {
-                    console.log(balance);
-                });
-
-                await EthereumProviderService.getLoveMessage();
-            }
-        });
-
-        // await this.contractService.connectAccount().then(() => {
-        //     console.log(this.contractService.getLoveMessage('1'));
-        // });
-    }
 }

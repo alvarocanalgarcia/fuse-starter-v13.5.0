@@ -1,40 +1,734 @@
 [
     {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "compradores",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "direccion",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "nombre",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "descripcion",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "activo",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_vendedor",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_clavePublicaComprador",
+                "type": "string"
+            }
+        ],
+        "name": "comprarProducto",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "comprarProductoNivel2",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "comprarProductoNivel3",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_nivel1Desvelado",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_fotoIPFSN1",
+                "type": "string"
+            }
+        ],
+        "name": "desvelarN1",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_nivel2Desvelado",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_fotoIPFSN2",
+                "type": "string"
+            }
+        ],
+        "name": "desvelarN2",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_nivel3Desvelado",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_fotoIPFSN3",
+                "type": "string"
+            }
+        ],
+        "name": "desvelarN3",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "devolucionPagoNivel1",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "devolucionPagoNivel2",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "devolucionPagoNivel3",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "name": "direccionesVendedores",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_direccion",
+                "type": "address"
+            }
+        ],
+        "name": "getIdProductosCompradosCompradorVendedor",
+        "outputs": [
+            {
+                "internalType": "uint256[]",
+                "name": "",
+                "type": "uint256[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getProductoComprado",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "comprador",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "clavePublicaComprador",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "vendedor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "clavePublicaVendedor",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "primeraDescripcion",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN1",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "fechaDeCompraN1",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "desveladoN1",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN2",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "fechaDeCompraN2",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "desveladoN2",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN3",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel3",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "fechaDeCompraN3",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN3",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "desveladoN3",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct ICryptoArk.ProductoComprado",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_vendedor",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
+            }
+        ],
+        "name": "getProductoVendedor",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "vendedor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "clavePublicaVendedor",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "primeraDescripcion",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "vendido",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN1",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN2",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN3",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel3",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN3",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct ICryptoArk.Producto",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_direccion",
+                "type": "address"
+            }
+        ],
+        "name": "getProductosCompradosCompradorVendedor",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "comprador",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "clavePublicaComprador",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "address",
+                        "name": "vendedor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "clavePublicaVendedor",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "primeraDescripcion",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN1",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "fechaDeCompraN1",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "desveladoN1",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN2",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "fechaDeCompraN2",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "desveladoN2",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN3",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel3",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "fechaDeCompraN3",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN3",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "desveladoN3",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct ICryptoArk.ProductoComprado[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_vendedor",
+                "type": "address"
+            }
+        ],
+        "name": "getProductosVendedor",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "vendedor",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "clavePublicaVendedor",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "primeraDescripcion",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "vendido",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN1",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN1",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN2",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN2",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "precioN3",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nivel3",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "fotoIPFSN3",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct ICryptoArk.Producto[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
+        "name": "getVendedores",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "direccion",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "nombre",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "descripcion",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "numProductos",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "activo",
+                        "type": "bool"
+                    }
+                ],
+                "internalType": "struct ICryptoArk.Vendedor[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
     },
     {
         "inputs": [
             {
-                "internalType": "string",
-                "name": "id",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_lover",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_loved",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_message",
-                "type": "string"
+                "internalType": "uint256",
+                "name": "_id",
+                "type": "uint256"
             }
         ],
-        "name": "addLoveMessage",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
+        "name": "productoVendido",
+        "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
     },
@@ -42,69 +736,186 @@
         "inputs": [
             {
                 "internalType": "address",
-                "name": "_allowed",
+                "name": "",
                 "type": "address"
-            }
-        ],
-        "name": "allow",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_denied",
-                "type": "address"
-            }
-        ],
-        "name": "deny",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "id",
-                "type": "string"
-            }
-        ],
-        "name": "getLoveMessage",
-        "outputs": [
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
             },
             {
                 "internalType": "uint256",
                 "name": "",
                 "type": "uint256"
+            }
+        ],
+        "name": "productosCompradosCompradorVendedor",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_nombre",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_descripcion",
+                "type": "string"
+            }
+        ],
+        "name": "registroComprador",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_clavePublicaVendedor",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_primeraDescripcion",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_precioN1",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_nivel1",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_fotoIPFSN1",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_precioN2",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_nivel2",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_fotoIPFSN2",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_precioN3",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "_nivel3",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_fotoIPFSN3",
+                "type": "string"
+            }
+        ],
+        "name": "registroProducto",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_nombre",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_descripcion",
+                "type": "string"
+            }
+        ],
+        "name": "registroVendedor",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "renounceOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "retirarGanancias",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "vendedores",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "direccion",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "nombre",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "descripcion",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "numProductos",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "activo",
+                "type": "bool"
             }
         ],
         "stateMutability": "view",
