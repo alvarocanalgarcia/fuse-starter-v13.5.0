@@ -83,7 +83,20 @@
                     <mat-expansion-panel-header [collapsedHeight]="'56px'" >
                         <mat-panel-title>Start using CryptoArk</mat-panel-title>
                     </mat-expansion-panel-header>
-                    This is the first explanation
+                    In order to start using CryptoArk, you need to register as a buyer or seller. As soon as you are registered,
+                    you will already have unlocked the functions of buying or selling products. To access them in the vendors menu
+                    you can use the top button to register a new product. In case you want to buy, you must also access the vendors
+                    menu to search for the desired vendor. When you enter the seller's detail, you will be able to see their products for sale.
+                </mat-expansion-panel>
+            </ng-container>
+            <ng-container>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header [collapsedHeight]="'56px'" >
+                        <mat-panel-title>Products</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    The products contain 3 levels of information, each of them has a price set by the seller. Initially you have access to a first
+                    description of the product for free. If you want more information about it, you must buy product information, first level 1 and
+                    then the following. Finally the seller will reveal contact information for the purchase of the product.
                 </mat-expansion-panel>
             </ng-container>
             <ng-container>
@@ -91,7 +104,13 @@
                     <mat-expansion-panel-header [collapsedHeight]="'56px'">
                         <mat-panel-title>How to buy</mat-panel-title>
                     </mat-expansion-panel-header>
-                    This is how to buy
+                    To buy products, you must access the sellers menu. Find the right seller and access his detail, there you can find all his
+                    products for sale. If you are interested in one of them, you must click on buy and you must pay the price of the first level.
+                    After the seller must decrypt the information personally, only the buyer can have access to said information. If the seller does
+                    not decrypt the information within 30 days, the buyer can withdraw the amount paid for that level. If the seller decrypts the
+                    information, the buyer can buy the next level. In the same way, the seller will have to decrypt the information, ... For the
+                    purchase of levels 2 and 3, it will be accessed from the menu of purchased products. There you will also find the details of
+                    the products purchased.
                 </mat-expansion-panel>
             </ng-container>
             <ng-container>
@@ -99,7 +118,9 @@
                     <mat-expansion-panel-header [collapsedHeight]="'56px'">
                         <mat-panel-title>How to sell</mat-panel-title>
                     </mat-expansion-panel-header>
-                    This is how to sell
+                    To sell products you must access the sellers menu, where you will find a button to register products. To do this you must follow
+                    the steps for your registration. When someone buys one of your products, said product will appear in the menu of purchased products
+                    so that you can reveal the information paid.
                 </mat-expansion-panel>
             </ng-container>
         </mat-accordion>
