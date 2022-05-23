@@ -14,21 +14,21 @@ export const defaultNavigation: FuseNavigationItem[] = [
                 title: 'Home',
                 type : 'basic',
                 icon : 'heroicons_outline:home',
-                link : '/home'
+                link : 'cryptoArk/home'
             },
             {
                 id   : 'sellers',
                 title: 'Sellers',
                 type : 'basic',
                 icon : 'heroicons_outline:user-group',
-                link : '/sellers'
+                link : 'cryptoArk/sellers'
             },
             {
                 id   : 'purchased-products',
                 title: 'Purchased products',
                 type : 'basic',
                 icon : 'heroicons_outline:folder-open',
-                link : '/purchased-products'
+                link : 'cryptoArk/purchased-products'
             }
         ]
     },

@@ -47,6 +47,8 @@
                             "src/favicon-32x32.png",
                             "src/metamaskIcon.png",
                             "src/boat.png",
+                            "src/noahs-ark.jpg",
+                            "src/ark.jpg",
                             "src/assets",
                             {
                                 "glob": "_redirects",
